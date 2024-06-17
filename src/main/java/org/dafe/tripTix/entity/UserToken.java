@@ -27,7 +27,7 @@ public class UserToken {
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
-    private SignUp signUp;
+    private User user;
 
     // Getters and setters
 }

@@ -27,7 +27,7 @@ public class Bookings {
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
-    private SignUp signUp;
+    private User user;
 
     @Column(name = "location_from", nullable = false)
     private String locationFrom;
