@@ -1,0 +1,39 @@
+package com.example.triptix.controller;
+
+import com.example.triptix.model.Destination;
+import com.example.triptix.model.Location;
+import com.example.triptix.model.Trip;
+import com.example.triptix.service.TripService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@CrossOrigin
+@RequestMapping("/trips")
+public class TripController {
+    private final TripService tripService;
+
+    @GetMapping("/available")
+    public List<Trip> getAvailableTrips() {
+        return tripService.getAvailableTrips();
+    }
+
+    @GetMapping("/search")
+    public List<Trip> findTrips(@RequestParam Location from, @RequestParam Destination to) {
+        return tripService.findTrips(from, to);
+    }
+
+    @GetMapping("/filter")
+    public List<Trip> filterTrips(@RequestParam Location from, @RequestParam Destination to, @RequestParam String vehicleType) {
+        return tripService.filterTrips(from, to, vehicleType);
+    }
+
+    @GetMapping("/{id}")
+    public Trip getTripById(@PathVariable Long id) {
+        return tripService.getTripById(id);
+    }
+}
+
