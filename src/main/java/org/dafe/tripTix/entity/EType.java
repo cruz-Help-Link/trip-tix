@@ -1,4 +1,4 @@
-package com.example.triptix.model;
+package org.dafe.tripTix.entity;
 
 public enum EType {
     CAR,

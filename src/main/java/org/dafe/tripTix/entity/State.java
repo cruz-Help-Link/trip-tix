@@ -5,24 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "vehicleType")
-public class VehicleType {
+@Table(name = "state")
+public class State {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    private String name;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<EType> type;
-
-    private int capacity;
-    private double price;
+    @Column(unique = true)
+    private String name;
+    @OneToMany(mappedBy = "fromState")
+    private List<TransportRoute> fromRoutes;
 
 }
 

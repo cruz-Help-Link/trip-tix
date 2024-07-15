@@ -1,6 +1,6 @@
-package com.example.triptix.repo;
+package org.dafe.tripTix.repository;
 
-import com.example.triptix.model.VehicleType;
+import org.dafe.tripTix.entity.VehicleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

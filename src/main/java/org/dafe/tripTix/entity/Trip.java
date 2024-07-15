@@ -1,12 +1,12 @@
-package com.example.triptix.model;
+package org.dafe.tripTix.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -19,22 +19,22 @@ public class Trip {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "location_id")
-    private Location from;
+    @JoinColumn(name = "vehicle_type_id")
+    private VehicleType vehicleType;
 
     @ManyToOne
-    @JoinColumn(name = "destination_id")
-    private Destination to;
+    @JoinColumn(name = "route_id")
+    private TransportRoute route;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
+    private Terminal from;
 
-//  UPDATE
-    @OneToMany(mappedBy = "trip")
-    private List<Seat> seats;
+    @ManyToOne
+    private Terminal to;
 
-    private LocalDateTime departureTime;
-    private LocalDateTime estimatedArrivalTime;
+    private TripType tripType;
+    private LocalDateTime departureDateTime;
+    private LocalDateTime arrivalDateTime; // Only for round trips
+    private int availableSeats;
+    private double price;
 }
-

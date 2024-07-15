@@ -1,4 +1,4 @@
-package com.example.triptix.config;
+package org.dafe.tripTix.configs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +30,7 @@ public class CorsConfig {
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(MAX_AGE_SECS);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/v1/**", configuration);
+        source.registerCorsConfiguration("/bookings/**", configuration);  //CHANGED
         return source;
     }
 }

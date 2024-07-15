@@ -5,24 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "vehicleType")
-public class VehicleType {
+@Table(name = "terminal")
+public class Terminal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    private String name;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<EType> type;
+    private String name;
 
-    private int capacity;
-    private double price;
-
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private State state;
 }
-

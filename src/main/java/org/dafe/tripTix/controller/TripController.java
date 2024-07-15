@@ -1,10 +1,11 @@
-package com.example.triptix.controller;
+package org.dafe.tripTix.controller;
 
-import com.example.triptix.model.Destination;
-import com.example.triptix.model.Location;
-import com.example.triptix.model.Trip;
-import com.example.triptix.service.TripService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.dafe.tripTix.entity.Terminal;
+import org.dafe.tripTix.entity.Trip;
+import org.dafe.tripTix.service.TripService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,28 +13,34 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin
-@RequestMapping("/trips")
+@RequestMapping("/trip")
+@AllArgsConstructor
 public class TripController {
-    private final TripService tripService;
 
-    @GetMapping("/available")
-    public List<Trip> getAvailableTrips() {
-        return tripService.getAvailableTrips();
+    private TripService tripService;
+
+    @GetMapping("/trips")
+    public List<Trip> getAllTrips() {
+        return tripService.findAll();
+    }
+
+    @PostMapping
+    public Trip createTrip(@RequestBody Trip trip) {
+        return tripService.save(trip);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTrip(@PathVariable Long id) {
+        tripService.delete(id);
     }
 
     @GetMapping("/search")
-    public List<Trip> findTrips(@RequestParam Location from, @RequestParam Destination to) {
+    public List<Trip> findTrips(@RequestParam Terminal from, @RequestParam Terminal to) {
         return tripService.findTrips(from, to);
     }
 
-    @GetMapping("/filter")
-    public List<Trip> filterTrips(@RequestParam Location from, @RequestParam Destination to, @RequestParam String vehicleType) {
-        return tripService.filterTrips(from, to, vehicleType);
-    }
-
-    @GetMapping("/{id}")
-    public Trip getTripById(@PathVariable Long id) {
-        return tripService.getTripById(id);
+    @GetMapping("/available-trips")
+    public List<Trip> getAvailableTrips() {
+        return tripService.getAvailableTrips();
     }
 }
-

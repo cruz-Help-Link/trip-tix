@@ -1,4 +1,4 @@
-package com.example.triptix.exception;
+package org.dafe.tripTix.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
