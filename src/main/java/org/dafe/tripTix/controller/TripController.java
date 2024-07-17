@@ -43,4 +43,8 @@ public class TripController {
     public List<Trip> getAvailableTrips() {
         return tripService.getAvailableTrips();
     }
+    @PutMapping("/{id}")
+    public Trip updateTrip(@PathVariable Long id, @RequestBody Trip tripDetails) {
+        return tripService.updateTrip(id, tripDetails);
+    }
 }
