@@ -9,6 +9,7 @@ import org.dafe.tripTix.entity.Trip;
 import org.dafe.tripTix.exception.ApiException;
 import org.dafe.tripTix.exception.ResourceNotFoundException;
 import org.dafe.tripTix.repository.TripRepository;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = "bookings")
 public class TripService {
 
     private final TripRepository tripRepository;

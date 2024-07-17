@@ -5,6 +5,7 @@ import org.dafe.tripTix.dto.BookingRequest;
 import org.dafe.tripTix.entity.Booking;
 import org.dafe.tripTix.exception.ApiException;
 import org.dafe.tripTix.repository.BookingsRepository;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@CacheConfig(cacheNames = "bookings")
 public class BookingService {
     private BookingsRepository bookingRepository;
 
