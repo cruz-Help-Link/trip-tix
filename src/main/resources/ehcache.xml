@@ -9,7 +9,7 @@
         <key-type>java.lang.Long</key-type>
         <value-type>java.lang.Object</value-type>
         <expiry>
-            <ttl unit="seconds">10000</ttl>
+            <ttl unit="minutes">10</ttl>
         </expiry>
         <listeners>
             <listener>
