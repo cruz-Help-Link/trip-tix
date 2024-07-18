@@ -75,7 +75,7 @@ jobs:
         run: sudo usermod -aG docker $(whoami)
 
       - name: Pull Image from Docker Hub
-        run: docker image pull dev21c/trip-tix:latest
+        run: docker pull dev21c/trip-tix:latest
 
       - name: Delete old container (if exists)
         run: |
