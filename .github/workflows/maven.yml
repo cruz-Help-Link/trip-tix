@@ -59,16 +59,18 @@ jobs:
       - name: Publish image to Docker Hub
         run: docker push dev21c/trip-tix:latest
 
-      - name: Restart Docker
-        run: | 
-          sudo ./svc.sh stop
-          sudo ./svc.sh start
+
 
   deploy:
     needs: build
     runs-on: self-hosted  # Replace with your self-hosted runner configuration
 
     steps:
+      - name: Restart Docker
+        run: |
+          sudo ./svc.sh stop
+          sudo ./svc.sh start
+
       - name: Pull Image from Docker Hub
         run: docker image pull dev21c/trip-tix:latest
 
