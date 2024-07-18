@@ -5,83 +5,40 @@
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-
-name: Java CI with Maven and Docker
+name: Deploy
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build:
-
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
-      - name: Build with Maven
-        run: mvn clean install -DskipTests
+    - name: Add user to docker group
+      run: sudo usermod -aG docker $USER
 
-#      - name: Install Docker
-#        run: |
-#          sudo apt-get update
-#          sudo apt-get install -y docker.io
-#          sudo systemctl start docker
-#          sudo systemctl enable docker
+    - name: Set permissions for Docker socket
+      run: sudo chmod 666 /var/run/docker.sock
 
-      - name: Verify Docker installation
-        run: docker --version
+    - name: Start Docker
+      run: sudo service docker start
 
-      - name: Add user to docker group (if applicable)
-        run: sudo usermod -aG docker $(whoami)
+    - name: Pull Image from Docker Hub
+      run: sudo docker pull dev21c/trip-tix:latest
 
-      - name: Logout and Login (if applicable)
-        run: |
-          sudo systemctl restart docker
+    - name: Deploy container
+      run: |
+        sudo docker run -d -p 80:80 dev21c/trip-tix:latest
 
-      - name: Login to Docker Hub
-        run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-
-      - name: Build Docker Image
-        run: docker build -t dev21c/trip-tix .
-
-      - name: Publish image to Docker Hub
-        run: docker push dev21c/trip-tix:latest
-
-
-
-  deploy:
-    needs: build
-    runs-on: self-hosted  # Replace with your self-hosted runner configuration
-
-    steps:
-      - name: Restart Docker
-        run: |
-          sudo systemctl restart docker
-#          sudo usermod -a -G docker <Niola-DC>
-
-      - name: Add user to docker group
-        run: sudo usermod -aG docker $USER
-        
-      - name: Set permissions for Docker socket
-        run: sudo chmod 666 /var/run/docker.sock
-        
-      - name: Pull Image from Docker Hub
-        run: docker pull dev21c/trip-tix:latest
-
-      - name: Delete old container (if exists)
-        run: |
           if [ $(docker ps -aq -f name=trip-tix-container) ]; then
             docker rm -f trip-tix-container
           fi
