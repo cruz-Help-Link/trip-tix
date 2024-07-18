@@ -83,4 +83,4 @@ jobs:
             docker rm -f trip-tix-container
           fi
       - name: Run Docker container
-        run: docker run -d -p 8090:8090 --name trip-tix-container dev21c/trip-tix
+        run: docker run -d -p 8080:8080 --name trip-tix-container dev21c/trip-tix
