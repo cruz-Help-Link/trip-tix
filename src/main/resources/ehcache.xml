@@ -24,6 +24,7 @@
             </listener>
         </listeners>
         <resources>
+
             <offheap unit="MB">100</offheap>
             <disk unit="MB" persistent="true">200</disk>
         </resources>
