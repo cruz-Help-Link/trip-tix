@@ -69,6 +69,10 @@ jobs:
       - name: Restart Docker
         run: |
           sudo systemctl restart docker
+#          sudo usermod -a -G docker <Niola-DC>
+
+      - name: Add user to docker group (if applicable)
+        run: sudo usermod -aG docker $(whoami)
 
       - name: Pull Image from Docker Hub
         run: docker image pull dev21c/trip-tix:latest
