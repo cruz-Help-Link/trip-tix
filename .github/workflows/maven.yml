@@ -68,8 +68,7 @@ jobs:
     steps:
       - name: Restart Docker
         run: |
-          sudo ./svc.sh stop
-          sudo ./svc.sh start
+          sudo systemctl restart docker
 
       - name: Pull Image from Docker Hub
         run: docker image pull dev21c/trip-tix:latest
